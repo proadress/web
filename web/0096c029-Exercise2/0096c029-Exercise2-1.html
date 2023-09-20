@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>HTML Form</title>
+    <style type="text/css">
+      p {
+        font: Perpetua;
+        font-size: 1.3em;
+      }
+      p::first-letter {
+        font-size: 1.5em;
+      }
+      input {
+        font-weight: 600;
+        color: blue;
+      }
+      input[type="submit"] {
+        color: firebrick;
+      }
+      input[type="reset"] {
+        color: firebrick;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Advanced Web Form</h1>
+    <form
+      method="post"
+      action="https://web-form-2023-97724a1c7fb1.herokuapp.com"
+      autocomplete="on"
+    >
+      <p>
+        <label
+          >Your name:
+          <input type="text" name="fullname" placeholder="name" />
+        </label>
+      </p>
+      <p>
+        <label
+          >Your email:
+          <input type="email" name="email" placeholder="name@domain.com" />
+          (name@domain.com)
+        </label>
+      </p>
+      <p>
+        <label
+          >Your homepage's URL:
+          <input
+            type="url"
+            name="url"
+            placeholder="http://www.domainname.com"
+          />
+          (http://www.domainname.com)</label
+        >
+      </p>
+      <p>
+        <label
+          >Your birthday date:
+          <input type="date" name="date" />
+          (yyyy-mm-dd)
+        </label>
+      </p>
+      <p>
+        <label>Your favorite color: </label>
+        <input type="color" name="color" autofocus />
+      </p>
+      <p>
+        <label for="txtList"
+          >Your Department:
+          <input
+            type="text"
+            id="txtList"
+            name="department"
+            placeholder="Select a Department"
+            list="cla"
+          />
+          <datalist id="cla">
+            <option value="Department of Aquaculture "></option>
+            <option value="Department of Bioscience and Biotechnology"></option>
+            <option
+              value="Department of Communications, Navigation and Control Engineering"
+            ></option>
+            <option
+              value="Department of Computer Science and Engineering"
+            ></option>
+            <option value="Department of Electrical Engineering"></option>
+            <option
+              value="Department of Environmental Biology and Fisheries Science"
+            ></option>
+            <option value="Department of Food Science"></option>
+            <option value="Department of Harbor and River Engineering"></option>
+            <option value="Department of Marine Engineering "></option>
+            <option
+              value="Department of Marine Environmental Informatics "
+            ></option>
+            <option
+              value="Department of Mechanical and Mechatronic Engineering "
+            ></option>
+            <option value="Department of Merchant Marine "></option>
+            <option
+              value="Department of Optoelectronics and Materials Technology "
+            ></option>
+            <option
+              value="Department of Shipping and Transportation Management "
+            ></option>
+            <option
+              value="Department of Systems Engineering and Naval Architecture "
+            ></option>
+            <option value="Department of Transportation Science"></option>
+          </datalist>
+        </label>
+      </p>
+      <p>
+        <strong
+          ><em
+            >Check off all of the characteristics that you enjoyed about the
+            college:</em
+          ></strong
+        ><br />
+      </p>
+      <p>
+        <label
+          ><input name="likes" type="checkbox" value="Campus" /> Campus</label
+        >
+        <label>
+          <input name="likes" type="checkbox" value="Students" />
+          Students</label
+        >
+        <label>
+          <input name="likes" type="checkbox" value="Location" />
+          Location</label
+        >
+      </p>
+      <p>
+        <strong><em>How did you become interested in our college?</em></strong
+        ><br />
+      </p>
+      <p>
+        <label>
+          <input name="interest" type="radio" value="Friends" checked />
+          Friends</label
+        >
+        <label>
+          <input name="interest" type="radio" value="Television" />
+          Television</label
+        >
+        <label>
+          <input name="interest" type="radio" value="Internet" />
+          Internet</label
+        >
+      </p>
+      <p>
+        <input type="submit" value="Submit" />
+        <input type="reset" value="Clear" />
+      </p>
+    </form>
+  </body>
+</html>
