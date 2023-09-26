@@ -4,49 +4,84 @@
     <meta charset="utf-8" />
     <title>HTML Form</title>
     <style type="text/css">
-      .background_image {
+      body {
+        background-color: lightgray;
+        font-family: Helvetica, sans-serif;
+        color: white;
+      }
+      .background {
         position: absolute;
         top: 0px;
         left: 0px;
+        max-width: 100%;
         z-index: 1;
       }
-      .foreground_image {
-        height: 100px;
+      .foreground {
+        position: absolute;
+        top: 10px;
+        right: 10px;
         width: 100px;
         z-index: 2;
       }
-      p {
-        font-size: 18pt;
-        color: white;
-        text-indent: 1em;
-        font-family: arial, sans-serif;
+      h1 {
+        position: absolute;
+        top: 0px;
+        left: 10px;
+        z-index: 2;
       }
-      .dark {
-        font-weight: bold;
+      .h22 {
+        position: absolute;
+        top: 60px;
+        left: 10px;
+        z-index: 2;
       }
-      a {
+      .sub {
+        font-family: Helvetica, sans-serif;
         color: white;
+        position: relative;
         text-decoration: none;
+        bottom: 4px;
+      }
+      .sup {
+        position: absolute;
+        top: 120px;
+        left: 10px;
+        z-index: 2;
+      }
+      span:hover {
+        background-color: lightblue;
+        text-decoration: underline;
+        color: navy;
+        font-weight: bold;
       }
     </style>
   </head>
 
   <body>
-    <h1>Advanced Web Form</h1>
     <p>
-      <img
-        src="ntou.jpg"
-        class="background_image"
-        alt="First positioned image"
-      />
+      <img src="ntou.jpg" class="background" />
+      <img src="ntou_logo.png" class="foreground" />
     </p>
+    <h1>Here are my favorite sites</h1>
+    <p class="h22">Click on a name to go to the website</p>
 
-    <p>
-      <img
-        src="ntou_logo.png"
-        class="foreground_image"
-        alt="Second positioned image"
-      />
-    </p>
+    <dim class="sup">
+      <span>
+        <img src="link.png" width="20" />
+        <a href="https://google.com" class="sub"> <span>Google</span> </a>
+      </span>
+      <br /><br />
+      <span>
+        <img src="link.png" width="20" />
+        <a href="https://facebook.com" class="sub"> <span>Facebook</span></a>
+      </span>
+      <br /><br />
+      <span>
+        <img src="link.png" width="20" />
+        <a href="https://youtube.com" class="sub">
+          <span>YouTube</span>
+        </a></span
+      ><br /><br
+    /></dim>
   </body>
 </html>
