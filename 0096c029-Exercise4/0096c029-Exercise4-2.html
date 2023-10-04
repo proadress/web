@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <script type="text/javascript">
+      let mode = parseInt(
+        window.prompt(
+          "Please input the Pokemon you like\n(1=pikachu, 2=bulbasaur, 3=charmander, 4=squirtle, 5=random):",
+          1
+        )
+      );
+
+      if (mode < 1 || mode > 5) {
+        window.alert("Wrong input!Please press[F5] to reload the page!");
+      }
+      let n = parseInt(
+        window.prompt("Please input the side length(>=1 and <=10):", 5)
+      );
+      if (n < 1 || n > 10) {
+        window.alert("Wrong input!Please press[F5] to reload the page!");
+      }
+      let a = mode;
+      for (let i = 0; i < n; i++) {
+        document.writeln("<div>");
+        for (let j = 0; j < n; j++) {
+          mode = a;
+          if (mode == 5) {
+            mode = Math.floor(Math.random() * 4 + 1);
+          }
+
+          let img = "pikachu";
+          if (mode == 2) img = "bulbasaur";
+          else if (mode == 3) img = "charmander";
+          else if (mode == 4) img = "squirtle";
+
+          document.writeln(
+            '<img src="' + img + '.png";width="100";height="100";/>'
+          );
+        }
+        document.writeln("</div>");
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
