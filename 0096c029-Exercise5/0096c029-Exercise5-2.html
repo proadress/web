@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <style>
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <label for="gridSize">Side Length(<=10):</label>
+    <input type="number" id="gridSize" placeholder="" value="10" />
+    <button id="tributton">Draw Baseball Triangle</button>
+    <button id="squbutton">Draw Baseball Square</button>
+    <button id="ramdonbutton">Draw Special Square</button>
+
+    <hr />
+
+    <div id="imageGrid"></div>
+
+    <script>
+      const gridsize = document.getElementById("gridSize");
+      const tributton = document.getElementById("tributton");
+      const squbutton = document.getElementById("squbutton");
+      const ramdonbutton = document.getElementById("ramdonbutton");
+      const imageGrid = document.getElementById("imageGrid");
+
+      squbutton.addEventListener("click", function () {
+        generateImageGrid(1);
+      });
+      tributton.addEventListener("click", function () {
+        generateImageGrid(2);
+      });
+      ramdonbutton.addEventListener("click", function () {
+        generateImageGrid(3);
+      });
+
+      function generateImageGrid(t) {
+        imageGrid.innerHTML = ""; // 清空之前的网格
+        const size = gridsize.value;
+        console.log(size);
+        for (let i = size - 1; i >= 0; i--) {
+          const imageCell = document.createElement("div");
+          for (let j = 0; j < size; j++) {
+            imageCell.classList.add("image-cell");
+            const image = document.createElement("img");
+            if (t === 1) image.src = "baseball.jpg";
+            else if (t === 2) {
+              if (j < i) image.src = "blank.png";
+              else image.src = "baseball.jpg";
+            } else {
+              if (Math.random() > 0.334) image.src = "baseball.jpg";
+              else image.src = "baseball-x.jpg";
+            }
+            imageCell.appendChild(image);
+          }
+          imageGrid.appendChild(imageCell);
+        }
+      }
+    </script>
+  </body>
+</html>
