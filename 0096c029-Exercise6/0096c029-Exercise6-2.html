@@ -3,93 +3,98 @@
   <head>
     <meta charset="utf-8" />
     <title>Basic DOM and function</title>
-    <style type="text/CSS">
+    <style>
+      @import url("https://fonts.googleapis.com/earlyaccess/cwtexkai.css");
       body {
-        font-family: "Courier New", Courier, monospace;
+        font-family: "cwTeXKai", "Perpetua", serif;
       }
-
-      .calculator {
-        display: flex;
-        flex-direction: column;
-        width: 200px;
-      }
-
-      input,
-      select,
-      button {
-        margin-bottom: 10px;
-        padding: 5px;
-      }
-
-      button {
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        cursor: pointer;
-        font-size: 120%;
-        width: 200px;
-      }
-
-      button:hover {
-        opacity: 0.8;
-      }
-
-      .result {
-        font-size: 120%;
-        padding: 10px;
-        border: 3px solid #ddd;
-        width: 200px;
+      div {
         text-align: center;
-        box-sizing: border-box;
+      }
+      .fail {
+        color: dimgray;
+      }
+      h1 {
+        color: navy;
+      }
+      .Verb {
+        font-size: 150%;
+        color: red;
       }
     </style>
   </head>
-
   <body>
-    <h3>Simple Calculator</h3>
-    <div class="calculator">
-      <input type="number" id="num1" placeholder="Input first number" />
-      <select id="operation">
-        <option value="add">+</option>
-        <option value="subtract">-</option>
-        <option value="multiply">*</option>
-        <option value="divide">/</option>
-      </select>
-      <input type="number" id="num2" placeholder="Input second number" />
-      <button id="calculateButton">Calculate</button>
+    <div>
+      <h1 class="fail">專案失敗了，是因為...</h1>
+      <h1 id="adj_noun">
+        <span class="Verb"></span>
+      </h1>
+      <img id="image" />
     </div>
-
-    <div id="result" class="result">Results</div>
-
     <script type="text/javascript">
-      let a = document.getElementById("num1");
-      let b = document.getElementById("num2");
-      let op = document.getElementById("operation");
-      let result = document.getElementById("result");
-      let Button = document.getElementById("calculateButton");
+      const adj = [
+        "客戶那邊的",
+        "我們的",
+        "負責談需求的",
+        "負責這個部分的",
+        "直到上線前一天",
+        "(雙手一攤)",
+      ];
 
-      Button.addEventListener("click", function () {
-        let num1 = parseFloat(a.value);
-        let num2 = parseFloat(b.value);
-        let operation = op.value;
+      const nouns = [
+        "專案經理",
+        "主管",
+        "工程師",
+        "設計師",
+        "外包",
+        "User",
+        "聯絡窗口",
+      ];
 
-        if (!isNaN(num1) && !isNaN(num2)) {
-          if (operation === "add") {
-            result.textContent = num1 + num2;
-          } else if (operation === "subtract") {
-            result.textContent = num1 - num2;
-          } else if (operation === "multiply") {
-            result.textContent = num1 * num2;
-          } else if (operation === "divide") {
-            if (num2 !== 0) result.textContent = num1 / num2;
-            else result.textContent = "Dividing by 0 is illegal";
-          } else {
-            result.textContent = "操作无效";
-          }
-        } else {
-          result.textContent = "请输入有效的数字";
-        }
+      const verbs = [
+        "當初沒有講清楚",
+        "一直換",
+        "說他肚子不舒服",
+        "擺爛不想做了",
+        "突然開始放長假",
+        "去生小孩了",
+        "離職了",
+        "都沒甚麼sense",
+        "都沒有跟我講",
+        "以為這些不用做",
+        "一直在狀況外",
+        "做事拖拖拉拉",
+        "還搞不清楚狀況",
+        "Quality 有問題",
+        "東西一直改",
+        "在整我",
+        "突然就沒來了",
+      ];
+
+      const imageFileNames = ["Cat.jpg", "Yao.jpg", "Harry.jpg", "Jacky.jpg"];
+
+      const image = document.getElementById("image");
+      const adj_noun = document.getElementById("adj_noun");
+      //const verb = document.getElementById("verb");
+
+      function change() {
+        const verb = document.createElement("span");
+        verb.classList.add("Verb");
+        verb.innerText = verbs[Math.floor(Math.random() * verbs.length)];
+
+        adj_noun.innerText =
+          adj[Math.floor(Math.random() * adj.length)] +
+          nouns[Math.floor(Math.random() * nouns.length)];
+        adj_noun.appendChild(verb);
+        image.src =
+          imageFileNames[Math.floor(Math.random() * imageFileNames.length)];
+      }
+
+      image.addEventListener("click", (ev) => {
+        change();
       });
+
+      change();
     </script>
   </body>
 </html>
