@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Doraemon</title>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+      img {
+        width: 300px;
+        height: 300px;
+      }
+
+      div,
+      input {
+        font-family: Noto Sans TC, Perpetua, serif;
+        width: 300px;
+      }
+
+      div {
+        color: darkblue;
+        text-align: center;
+        font-size: 24px;
+      }
+
+      input {
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+    <script>
+      // TODO
+
+      const gadgetString =
+        "任意門 時光機 竹蜻蜓 時光布 記憶麵包 縮小燈 翻譯蒟蒻 如果電話亭 穿透環 更衣照相機";
+      function audioEnded() {
+        // When the audio finishes, display the gadget image
+        const displayArea = document.getElementById("messages");
+        const gadget = document.getElementById("gadget");
+
+        // Select a random gadget
+        const random = Math.floor(Math.random() * 10);
+
+        // Display the selected gadget's name
+        displayArea.innerText =
+          "您抽到" + gadgetString.split(" ")[random-1] + "!";
+
+        // Display the selected gadget's image
+        if (random == 10) gadget.src = random + ".png";
+        else gadget.src = "0" + random + ".png";
+      }
+
+      function audioPlay() {
+        const audio = document.getElementById("audio");
+        const gadgetImage = document.getElementById("gadget");
+        const displayArea = document.getElementById("messages");
+
+        // Clear the display area
+        displayArea.innerHTML = "";
+        gadgetImage.src = "blank.png";
+
+        // Play the "find.mp3" audio
+        audio.play();
+      }
+    </script>
+  </head>
+
+  <body>
+    <img id="gadget" src="00.png" alt="gadget" />
+    <form action="#">
+      <input id="play" type="button" value="抽道具" onclick="audioPlay()" />
+    </form>
+    <div id="messages">請按下Button抽出道具</div>
+    <audio id="audio" src="doraemon.mp3" onended="audioEnded()"></audio>
+  </body>
+</html>
