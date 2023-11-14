@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Pin Pictures</title>
+    <style type="text/css">
+        div.nav {
+            border: 1px solid skyBlue;
+            margin-left: 3px;
+            padding: 3px;
+            float: left;
+        }
+
+        input,
+        p,
+        li {
+            font-family: Helvetica,
+                "Microsoft YaHei", "LiHei Pro", TW-Kai;
+        }
+
+        li {
+            font-size: 12px;
+        }
+
+        img.picture {
+            position: absolute;
+        }
+    </style>
+    <script type="text/javascript">
+    </script>
+</head>
+
+<body>
+    <img src="blackboard.jpg" height="600" width="800" style="float:left; z-index:0;" />
+    <img id="img-0" class="picture" style="top: 50px; left: 50px; z-index:1;" src="doraemon.png" />
+    <img id="pin-0" class="picture" style="top: 40px; left: 135px; z-index:1;" width="30px" src="red.png" />
+
+    <div id="nav" class="nav">
+        <form action="#">
+            <p>
+                <label>要放哪個道具圖片(請輸入編號):
+                    <input type="number" id="pic" min="1" max="10" step="1" value="1" />
+                </label>
+                <br />
+                <label>圖片X座標:
+                    <input type="number" id="x" min="40" max="600" step="1" value="40" />
+                </label>
+                <br />
+                <label>圖片Y座標:
+                    <input type="number" id="y" min="40" max="400" step="1" value="100" />
+                </label>
+            </p>
+            <p>
+                <input type="button" value="新增圖片" id="addButton">
+                <input type="button" value="移除所有圖片" id="removeAllButton">
+            </p>
+        </form>
+        <ul>
+            <li>[01]任意門</li>
+            <li>[02]時光機</li>
+            <li>[03]竹蜻蜓</li>
+            <li>[04]時光布</li>
+            <li>[05]記憶麵包</li>
+            <li>[06]縮小燈</li>
+            <li>[07]翻譯蒟蒻</li>
+            <li>[08]如果電話亭</li>
+            <li>[09]穿透環</li>
+            <li>[10]更衣照相機</li>
+        </ul>
+    </div>
+</body>
+
+</html>
