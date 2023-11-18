@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可拖曳的物件</title>
+    <style>
+        /* 设置拖曳元素的样式 */
+        #draggable {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+            position: absolute;
+            cursor: grab;
+        }
+
+        .dropzone {
+            width: 200px;
+            height: 100px;
+            background: blueviolet;
+            margin: 10px;
+            padding: 100px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 拖曳的元素 -->
+    <!-- <div id="draggable" draggable="true">拖曳我</div> -->
+    <!-- <div id="draggable" draggable="true">拖曳我</div> -->
+
+    <div id="draggable" draggable="true">This div is draggable</div>
+    <br />
+    <div class="dropzone" id="droptarget"></div>
+
+
+    <script>
+        // 初始化拖曳位置
+        let offsetX, offsetY, isStart = false;
+
+        const source = document.getElementById("draggable");
+        // 添加拖曳开始事件
+        source.addEventListener('dragstart', function (e) {
+            if (!isStart) {
+                offsetX = e.clientX - source.getBoundingClientRect().left;
+                offsetY = e.clientY - source.getBoundingClientRect().top;
+                isStart = true;
+            }
+        });
+
+        const target = document.getElementById("droptarget");
+        target.addEventListener("dragover", (e) => {
+            // prevent default to allow drop
+            e.preventDefault();
+        });
+        target.addEventListener("drop", (e) => {
+            source.style.left = e.clientX - offsetX + 'px';
+            source.style.top = e.clientY - offsetY + 'px';
+            isStart = false;
+        });
+
+    </script>
+
+</body>
+
+</html>
