@@ -54,9 +54,57 @@
         </p>
     </form>
     <hr>
-    <div id="display">
-    </div>
-    <script src="01.js"></script>
+    <table>
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>author</th>
+                <th>year</th>
+                <th>url</th>
+            </tr>
+        </thead>
+        <tbody id="display">
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        const inputIds = ["title", "author", "year", "url"],
+            display = document.getElementById("display");
+        function show() {
+            display.innerHTML = "";
+            let e = 0;
+            getkeys().forEach(t => {
+                let n = document.createElement("tr");
+                e % 2 == 1 && (n.className = "oddrow");
+                let l = JSON.parse(localStorage.getItem(t));
+                inputIds.forEach(e => {
+                    let t = document.createElement("td");
+                    if ("url" == e) {
+                        let r = document.createElement("a");
+                        r.href = l[e], r.innerText = l[e], t.appendChild(r)
+                    } else t.innerText = l[e];
+                    n.appendChild(t)
+                }), display.appendChild(n), e++
+            })
+        }
+        function getkeys() {
+            let e = [];
+            for (let t = 0; t < localStorage.length; t++) {
+                let n = localStorage.key(t);
+                n.startsWith("ntou-") && e.push(n)
+            }
+            return e
+        }
+        show(), document.getElementById("addButton").addEventListener("click", () => {
+            let e = {};
+            inputIds.forEach(t => {
+                e[t] = document.getElementById(t).value
+            }), localStorage.setItem("ntou-" + new Date().getTime(), JSON.stringify(e)), show()
+        }), document.getElementById("removeAllButton").addEventListener("click", () => {
+            console.log(localStorage.length), getkeys().forEach(e => {
+                localStorage.removeItem(e)
+            }), display.innerHTML = "", window.alert("This is an alert!")
+        });
+    </script>
 </body>
 
 </html>

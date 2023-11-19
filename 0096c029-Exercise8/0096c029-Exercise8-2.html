@@ -73,91 +73,38 @@
         </ul>
     </div>
     <script type="text/javascript">
-        const display = document.getElementById("display");
-        const color = ["red", "yellow", "blue"];
-        let source, golpin, offsetX, offsetY, isStart = false;
-
-
-        display.innerHTML = JSON.parse(localStorage.getItem('save'));
-
-        document.getElementById("addButton").addEventListener("click", () => {
-            const pic = document.getElementById("pic");
-            const x = document.getElementById("x");
-            const y = document.getElementById("y");
-            if (pic.value > 10 || pic.value < 1) return;
-
-            display.appendChild(create_new(pic.value, x.value, y.value));
-            localStorage.setItem('save', JSON.stringify(display.innerHTML));
+        const display = document.getElementById("display"),
+            color = ["red", "yellow", "blue"];
+        let source, golpin, offsetX, offsetY, isStart = !1;
+        display.innerHTML = JSON.parse(localStorage.getItem("save")), document.getElementById("addButton").addEventListener("click", () => {
+            let e = document.getElementById("pic"),
+                t = document.getElementById("x"),
+                l = document.getElementById("y");
+            e.value > 10 || e.value < 1 || (display.appendChild(create_new(e.value, t.value, l.value)), localStorage.setItem("save", JSON.stringify(display.innerHTML)))
+        }), document.getElementById("removeAllButton").addEventListener("click", () => {
+            display.innerHTML = "", localStorage.setItem("save", JSON.stringify(""))
         });
-        document.getElementById("removeAllButton").addEventListener("click", () => {
-            display.innerHTML = "";
-            localStorage.setItem('save', JSON.stringify(""));
-        });
-
-
-
         const target = document.getElementById("blackboard");
-        target.addEventListener("dragover", (e) => {
-            // prevent default to allow drop
-            e.preventDefault();
-        });
-        target.addEventListener("drop", (e) => {
-            source.style.left = e.clientX - offsetX + 'px';
-            source.style.top = e.clientY - offsetY + 'px';
-            golpin.style.left = e.clientX - offsetX + 85 + 'px';
-            golpin.style.top = e.clientY - offsetY - 10 + 'px';
-            isStart = false;
-            localStorage.setItem('save', JSON.stringify(display.innerHTML));
-        });
 
-        function create_new(pic, x, y) {
-            const div = document.createElement("div");
-            const obj = document.createElement("img");
-            const pin = document.createElement("img");
-
-            if (pic < 10)
-                obj.src = "0" + pic + ".png";
-            else obj.src = pic + ".png";
-            obj.className = "picture"
-            obj.style.top = y + "px";
-            obj.style.left = x + "px";
-            obj.style.zIndex = 1;
-            //div.setAttribute('ondragstart', 'dragStart(event)');
-
-            // 从数组中获取随机选择的字符串
-            const s = color[Math.floor(Math.random() * color.length)];
-            pin.src = s + ".png";
-            pin.className = "picture pin"
-            pin.style.top = (parseInt(y) - 10) + 'px';
-            pin.style.left = (parseInt(x) + 85) + 'px';
-            pin.style.zIndex = 1;
-            pin.style.width = 30 + "px";
-            obj.setAttribute('ondragstart', 'dragStart(event)');
-
-            div.appendChild(obj);
-            div.appendChild(pin);
-
-
-            return div;
+        function create_new(e, t, l) {
+            let n = document.createElement("div"),
+                s = document.createElement("img"),
+                r = document.createElement("img");
+            e < 10 ? s.src = "0" + e + ".png" : s.src = e + ".png", s.className = "picture", s.style.top = l + "px", s.style.left = t + "px", s.style.zIndex = 1;
+            let i = color[Math.floor(Math.random() * color.length)];
+            return r.src = i + ".png", r.className = "picture pin", r.style.top = parseInt(l) - 10 + "px", r.style.left = parseInt(t) + 85 + "px", r.style.zIndex = 1, r.style.width = "30px", s.setAttribute("ondragstart", "dragStart(event)"), n.appendChild(s), n.appendChild(r), n
         }
 
         function dragStart(e) {
             source = e.target;
-            const pin = source.parentNode.querySelector('.pin');
-            //console.log(pin)
-
-            // 修改 otherDiv 的文本内容
-            if (pin) {
-                golpin = pin;
-            }
-            // golpin = pin;
-            //console.log(source);
-            if (!isStart) {
-                offsetX = e.clientX - source.getBoundingClientRect().left;
-                offsetY = e.clientY - source.getBoundingClientRect().top;
-                isStart = true;
-            }
+            let t = source.parentNode.querySelector(".pin");
+            t && (golpin = t), isStart || (offsetX = e.clientX - source.getBoundingClientRect().left, offsetY = e.clientY - source.getBoundingClientRect().top, isStart = !0)
         }
+        target.addEventListener("dragover", e => {
+            e.preventDefault()
+        }), target.addEventListener("drop", e => {
+            source.style.left = e.clientX - offsetX + "px", source.style.top = e.clientY - offsetY + "px", golpin.style.left = e.clientX - offsetX + 85 + "px", golpin.style.top = e.clientY - offsetY - 10 + "px", isStart = !1, localStorage.setItem("save", JSON.stringify(display.innerHTML))
+        });
     </script>
 </body>
 
