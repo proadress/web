@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Logo Show Page</title>
+	<style>
+		#canvas {
+			position: relative;
+		}
+
+		.company-icon {
+			position: absolute;
+		}
+	</style>
+	<script>
+		const picAry = ["microsoft", "google", "yahoo", "facebook", "ibm", "apple"];
+
+		function getRandomCoordinate(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+		function shuffleArray(array) {
+			for (let i = array.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[array[i], array[j]] = [array[j], array[i]];
+			}
+		}
+
+		function createCompanyIcons() {
+			const canvas = document.getElementById('canvas');
+			canvas.innerHTML = '';
+
+			shuffleArray(picAry);
+
+			picAry.forEach(company => {
+				const icon = document.createElement('img');
+				icon.src = `${company}.png`; // Replace with the actual image path or URL
+				icon.alt = company;
+				icon.classList.add('company-icon');
+				icon.style.left = getRandomCoordinate(100, 400) + 'px';
+				icon.style.top = getRandomCoordinate(100, 400) + 'px';
+				canvas.appendChild(icon);
+			});
+		}
+
+		function updateCanvas() {
+			setInterval(() => {
+				createCompanyIcons();
+			}, 2000); // Refresh every 2 seconds
+		}
+
+		document.addEventListener('DOMContentLoaded', () => {
+			createCompanyIcons();
+			updateCanvas();
+		});
+	</script>
+</head>
+
+<body>
+	<div id="canvas"></div>
+</body>
+
+</html>

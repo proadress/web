@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Simple Drawing Program</title>
+    <style>
+        /* CSS for draw.html. */
+
+        #canvas-container {
+            display: flex;
+
+        }
+
+        #canvas {
+            width: 400px;
+            border: 1px solid #999999;
+            border-collapse: collapse
+        }
+
+        td {
+            width: 4px;
+            height: 4px;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .blue {
+            background-color: blue;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        .white {
+            background-color: white;
+        }
+
+        #spacer {
+            margin-right: 20px;
+            /* 调整此处的数值以改变间距大小 */
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="canvas-container">
+        <table id="canvas">
+            <tbody id="tablebody"></tbody>
+        </table>
+        <div id="spacer"></div> <!-- 添加的间距 -->
+        <div id="instructions">
+
+            Hold <em>Ctrl</em> and drag the mouse to draw blue.<br>
+            Hold <em>Shift</em> and drag the mouse to draw red.<br>
+            Hold <em>Alt</em> and drag the mouse to draw green.<br>
+            Drag the mouse only to draw white (an eraser).
+            <br><br>
+        </div>
+    </div>
+    <button id="clear">Clear</button>
+
+
+
+
+    <script>
+        start();
+        function start() {
+            const side = 100;
+            const tbody = document.getElementById("tablebody");
+
+            for (let i = 0; i < side; ++i) {
+                const row = document.createElement("tr");
+
+                for (let j = 0; j < side; ++j) {
+                    const cell = document.createElement("td");
+                    row.appendChild(cell);
+                } // end for
+
+                tbody.appendChild(row);
+            } // end for
+        }
+        // register mousemove listener for the table
+
+
+
+        document.getElementById("canvas").addEventListener("mousemove", (e) => {
+            if (e.target.tagName.toLowerCase() == "td") {
+                if (e.ctrlKey) {
+                    e.target.setAttribute("class", "blue");
+                }
+                else if (e.shiftKey) {
+                    e.target.setAttribute("class", "red");
+                }
+                else if (e.altKey) {
+                    e.target.setAttribute("class", "green");
+                }
+                else {
+                    e.target.setAttribute("class", "white");
+                }
+            }
+        });
+        document.getElementById("clear").addEventListener("click", () => {
+            document.getElementById("tablebody").innerHTML = "";
+            start();
+        })
+
+
+    </script>
+</body>
+
+</html>
