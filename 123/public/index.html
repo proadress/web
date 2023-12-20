@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學生資訊管理系統</title>
+    <style>
+        table,
+        th,
+        td {
+            border: gray 2px solid;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>學生列表</h1>
+
+    <table id="student-list" style="width: 80%">
+    </table>
+
+    <h2>新增學生</h2>
+
+    <form id="add-student-form">
+        <label for="name">姓名：</label>
+        <input type="text" id="name" name="name" value="1" required>
+
+        <label for="age">年齡：</label>
+        <input type="number" id="age" name="age" value="1" required>
+
+        <label for="grade">年級：</label>
+        <input type="text" id="grade" name="grade" value="1" required>
+
+        <button type="submit">新增</button>
+    </form>
+
+    <div id="update-student-form" style="display: none;">
+        <h2>更新學生資訊</h2>
+        <form id="actual-update-form">
+            <label for="update-name">姓名：</label>
+            <input type="hidden" id="update-student-id" name="update-student-id">
+
+            <input type="text" id="update-name" name="name" value="2" required>
+
+            <label for="update-age">年齡：</label>
+            <input type="number" id="update-age" name="age" value="2" required>
+
+            <label for="update-grade">年級：</label>
+            <input type="text" id="update-grade" name="grade" value="2" required>
+
+            <button type="submit">更新</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+
+        const tableHeader = `
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Grade</th>
+            <th>Action</th>
+        </tr>`;
+        $(document).ready(() => {
+            // 取得學生列表
+            loadStudentList();
+
+            // 新增學生
+            $('#add-student-form').submit((event) => {
+                event.preventDefault(); //避免跳頁
+
+                const name = $('#name').val();
+                const age = $('#age').val();
+                const grade = $('#grade').val();
+
+                $.post('students', { name, age, grade }, function (newStudent) {
+                    loadStudentList();
+                    $('#add-student-form')[0].reset();
+                });
+            });
+            $('#update-student-form').submit((event) => {
+                event.preventDefault();
+
+                const updateName = $('#update-name').val();
+                const updateAge = $('#update-age').val();
+                const updateGrade = $('#update-grade').val();
+                const studentId = $('#update-student-id').val(); // 添加這行
+
+                console.log(studentId)
+
+                // 在這裡執行實際的更新邏輯，使用 studentId
+                $.ajax({
+                    url: `students/${studentId}`,
+                    type: 'PUT', // 使用 PUT 方法
+                    data: { name: updateName, age: updateAge, grade: updateGrade },
+                    success: function (updatedStudent) {
+                        // 更新成功後，更新相應的表格行
+                        loadStudentList();
+
+                        // 隱藏更新表單
+                        $('#update-student-form').hide();
+                    },
+                    error: function (error) {
+                        console.error('更新學生時發生錯誤:', error);
+                    }
+                });
+            });
+
+        });
+
+        function loadStudentList() {
+            $.get('students', (students) => {
+                const studentList = $('#student-list');
+                studentList.empty(); // 清空原有列表
+                studentList.append(tableHeader);
+                students.forEach((student) => {
+                    studentList.append(`
+                <tr>
+                    <td>${student.name}</td>
+                    <td>${student.age}歲</td>
+                    <td>${student.grade}年級</td>
+                    <td>
+                        <button onclick="deleteStudent('${student._id}')">刪除</button>
+                        <button onclick="putStudent('${student._id}')">更新</button>
+                    </td>
+                </tr>`);
+                });
+            });
+        }
+        function openUpdateForm(studentId) {
+            // 可以在這裡添加邏輯以獲取學生資訊並將其填充到表單中
+            $('#update-student-form').show();
+        }
+
+        function deleteStudent(studentId) {
+            $.ajax({
+                url: `students/${studentId}`,
+                type: 'DELETE',
+                success: function () {
+                    // 刪除成功後，重新載入學生列表
+                    location.reload();
+                },
+                error: function (error) {
+                    console.error('刪除學生時發生錯誤:', error);
+                }
+            });
+        }
+        function putStudent(studentId) {
+            $('#update-student-form').show();
+            $('#update-student-id').val(studentId); // 確保為 #update-student-id 設置值
+        }
+
+    </script>
+</body>
+
+</html>

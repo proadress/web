@@ -70,6 +70,8 @@
 
 
     <script>
+        let isDragging = false; // 标志变量，表示是否正在拖曳中
+
         start();
         function start() {
             const side = 100;
@@ -89,22 +91,25 @@
         // register mousemove listener for the table
 
 
-
+        document.getElementById("canvas").addEventListener("mousedown", () => { isDragging = true; });
+        document.getElementById("canvas").addEventListener("mouseup", () => { isDragging = false; });
+        
         document.getElementById("canvas").addEventListener("mousemove", (e) => {
-            if (e.target.tagName.toLowerCase() == "td") {
-                if (e.ctrlKey) {
-                    e.target.setAttribute("class", "blue");
+            if (isDragging)
+                if (e.target.tagName.toLowerCase() == "td") {
+                    if (e.ctrlKey) {
+                        e.target.setAttribute("class", "blue");
+                    }
+                    else if (e.shiftKey) {
+                        e.target.setAttribute("class", "red");
+                    }
+                    else if (e.altKey) {
+                        e.target.setAttribute("class", "green");
+                    }
+                    else {
+                        e.target.setAttribute("class", "white");
+                    }
                 }
-                else if (e.shiftKey) {
-                    e.target.setAttribute("class", "red");
-                }
-                else if (e.altKey) {
-                    e.target.setAttribute("class", "green");
-                }
-                else {
-                    e.target.setAttribute("class", "white");
-                }
-            }
         });
         document.getElementById("clear").addEventListener("click", () => {
             document.getElementById("tablebody").innerHTML = "";
